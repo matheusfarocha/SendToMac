@@ -1,30 +1,31 @@
+import rumps
 import os
+import time
 from dotenv import load_dotenv
 from supabase import create_client, Client
-import time
 
-# loads .env in environment  
-load_dotenv()
-# sets url/keys for database
-url = os.environ.get("SUPABASE_URL")
-key = os.environ.get("SUPABASE_KEY")
+class SendToMacApp(rumps.App):
+    def __init__(self):
+        super(SendToMacApp, self).__init__("SendToMac")
+        self.timer = rumps.Timer(self.check_supabase, 60)
+        self.timer.start()
+        load_dotenv()
+        self.supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
-# initializes connection to database
-supabase: Client = create_client(url, key)
+    def check_supabase(self, _):
+        try:
+            table = self.supabase.table("Main").select("id, file_data, is_read, file_type").execute()
+            for row in table.data:
+                if not row["is_read"]:
+                    if row["file_type"] == "URL":
+                        os.system(f"open {row['file_data']}")
+                    elif row["file_type"] == "TEXT":
+                        with open("/tmp/sendtomac.txt", "w") as f:
+                            f.write(row["file_data"])
+                        os.system("open /tmp/sendtomac.txt")
+                    self.supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
+        except Exception as e:
+            print("Error:", e)
 
-# fetches table 
-while True:
-    table = supabase.table("Main").select("id, file_data, is_read, file_type").execute()
-
-    # iterates through table, if data hasn't been seen it opens and registers as seen 
-
-    for row in table.data:
-        if row['is_read'] == False:
-            if row['file_type'] == "URL":
-                os.system(f"open {row['file_data']}")
-            elif row['file_type'] == "TEXT":
-                os.system(f"echo {row['file_data']} > /tmp/sendtomac.txt")
-                os.system("open /tmp/sendtomac.txt")
-            supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
-            time.sleep(1)
-    time.sleep(60)
+if __name__ == "__main__":
+    SendToMacApp().run()
