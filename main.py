@@ -6,7 +6,7 @@ from supabase import create_client, Client
 
 class SendToMacApp(rumps.App):
     def __init__(self):
-        super(SendToMacApp, self).__init__("SendToMac")
+        super(SendToMacApp, self).__init__("STM")
         self.timer = rumps.Timer(self.check_supabase, 60)
         self.timer.start()
         load_dotenv()
