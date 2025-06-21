@@ -33,6 +33,7 @@ def check_and_prompt(item):
         print("User snoozed the message.")
         # You could write it to a local file or memory queue
 
+check_and_prompt({'file_data' : 'hello', 'file_type' : 'TEXT'})
 class SendToMacApp(rumps.App):
      def __init__(self):
          super(SendToMacApp, self).__init__("STM")
@@ -51,5 +52,5 @@ class SendToMacApp(rumps.App):
          except Exception as e:
              print("Error:", e)
 
- if __name__ == "__main__":
+if __name__ == "__main__":
      SendToMacApp().run()
