@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+
+enum AlertType: Identifiable {
+    case success, failure
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct ContentView: View {
     @State private var selectedType: String = ""
     @State private var data: String = ""
-    @State private var showSuccessAlert = false
+    @State private var alertType: AlertType?
     
     func getSecret(_ key: String) -> String {
         guard let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
@@ -45,6 +54,7 @@ struct ContentView: View {
         ]
         guard !selectedType.isEmpty, !data.isEmpty else {
             print("Missing data or type")
+            alertType = .failure
             return
         }
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -52,14 +62,22 @@ struct ContentView: View {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 print("Error:", error.localizedDescription)
+                DispatchQueue.main.async {
+                    alertType = .failure
+                }
                 return
             }
 
             if let httpResponse = response as? HTTPURLResponse {
                 print("Status code:", httpResponse.statusCode)
                 if httpResponse.statusCode == 201 {
-                    showSuccessAlert = true
+                    DispatchQueue.main.async {
+                        alertType = .success
+                    }
                 } else {
+                    DispatchQueue.main.async {
+                        alertType = .failure
+                    }
                     print("Response body:", String(data: data ?? Data(), encoding: .utf8) ?? "No body")
                 }
             }
@@ -88,8 +106,13 @@ struct ContentView: View {
             .cornerRadius(8)
         }
         .padding()
-        .alert(isPresented: $showSuccessAlert) {
-            Alert(title: Text("Success"), message: Text("Data sent successfully!"), dismissButton: .default(Text("OK")))
+        .alert(item: $alertType) { type in
+            switch type {
+            case .success:
+                return Alert(title: Text("Success"), message: Text("Data sent successfully!"), dismissButton: .default(Text("OK")))
+            case .failure:
+                return Alert(title: Text("Failure"), message: Text("Data Failed to send."), dismissButton: .default(Text("OK")))
+            }
         }
     }
 }
