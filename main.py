@@ -7,6 +7,8 @@ import rumps
 import webbrowser
 import time
 import AppKit
+from datetime import datetime, timezone, timedelta
+from dateutil.parser import isoparse
 
 def check_and_prompt(item):
     msg = item['file_data']
@@ -15,25 +17,32 @@ def check_and_prompt(item):
     alert.setMessageText_(f"New {kind}")
     alert.setInformativeText_(msg)
     alert.addButtonWithTitle_("Open")
-    alert.addButtonWithTitle_("Snooze")
+    alert.addButtonWithTitle_("Snooze 5m")
     alert.setAlertStyle_(AppKit.NSAlertStyleInformational)
 
     running_app = AppKit.NSRunningApplication.runningApplicationWithProcessIdentifier_(os.getpid())
     running_app.activateWithOptions_(AppKit.NSApplicationActivateIgnoringOtherApps)
 
     response = alert.runModal()
-    if response == 1000:  # Open Now
+    if response == 1000:  # Open Now 
         if kind == "TEXT":
-            os.system(f"echo {msg} > /tmp/sendtomac.txt")
-            os.system("open /tmp/sendtomac.txt")
-        elif kind == "URL":
-            webbrowser.open(msg)
-    else:  # Snooze
-        # Store it or delay for later
-        print("User snoozed the message.")
-        # You could write it to a local file or memory queue
+            exit_code1 = os.system(f"echo {msg} > /tmp/sendtomac.txt")
+            exit_code2 = os.system("open /tmp/sendtomac.txt")
 
-check_and_prompt({'file_data' : 'hello', 'file_type' : 'TEXT'})
+            if exit_code1 == 0 and exit_code2 == 0:
+                return 1
+            else:
+                print("Error executing shell command")
+                return 0
+        elif kind == "URL":
+            return webbrowser.open(msg)
+
+        print("error, failed to action")
+        return 0
+    else:  # Snooze
+        print("User snoozed the message.")
+        return 2
+
 class SendToMacApp(rumps.App):
      def __init__(self):
          super(SendToMacApp, self).__init__("STM")
@@ -43,12 +52,25 @@ class SendToMacApp(rumps.App):
          self.supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
      def check_supabase(self, _):
+         snoozed=5
          try:
-             table = self.supabase.table("Main").select("id, file_data, is_read, file_type").execute()
+             table = self.supabase.table("Main").select("id, file_data, is_read, file_type, use_at, expires_at").execute()
              for row in table.data:
-                 if not row["is_read"]:
-                     check_and_prompt(row)
-                     self.supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
+                 if not row["is_read"] and isoparse(row['use_at']) <= datetime.now(timezone.utc):
+                     # opens then checks if opened, if opened does required functions with database
+                     code = check_and_prompt(row)
+                     if code == 1: 
+                         self.supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
+                     elif code == 2:
+                         new_use_at = (datetime.now(timezone.utc) + timedelta(minutes=snoozed)).isoformat()
+                         self.supabase.table("Main").update({"use_at": new_use_at}).eq("id", row["id"]).execute()
+
+                         new_expires_at = (isoparse(row['expires_at']) + timedelta(minutes=snoozed)).isoformat()
+                         self.supabase.table("Main").update({"expires_at": new_expires_at}).eq("id", row["id"]).execute()
+                     
+                 elif row["is_read"] and isoparse(row['expires_at']) <= datetime.now(timezone.utc):
+                     self.supabase.table("Main").delete().eq("id", row["id"]).execute()
+                         
          except Exception as e:
              print("Error:", e)
 
