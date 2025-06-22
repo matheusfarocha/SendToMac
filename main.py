@@ -65,7 +65,7 @@ class SendToMacApp(rumps.App):
                          new_use_at = (datetime.now(timezone.utc) + timedelta(minutes=snoozed)).isoformat()
                          self.supabase.table("Main").update({"use_at": new_use_at}).eq("id", row["id"]).execute()
 
-                         new_expires_at = (isoparse(row['expires_at']) + timedelta(minutes=snoozed)).isoformat()
+                         new_expires_at = (isoparse(row['expires_at']) + timedelta(minutes=snoozed * 2)).isoformat()
                          self.supabase.table("Main").update({"expires_at": new_expires_at}).eq("id", row["id"]).execute()
                      
                  elif row["is_read"] and isoparse(row['expires_at']) <= datetime.now(timezone.utc):

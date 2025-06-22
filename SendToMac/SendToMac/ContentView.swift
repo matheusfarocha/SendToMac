@@ -9,6 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selectedType: String = ""
     @State private var data: String = ""
+    @State private var showSuccessAlert = false
     
     func getSecret(_ key: String) -> String {
         guard let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
@@ -56,7 +57,9 @@ struct ContentView: View {
 
             if let httpResponse = response as? HTTPURLResponse {
                 print("Status code:", httpResponse.statusCode)
-                if httpResponse.statusCode != 201 {
+                if httpResponse.statusCode == 201 {
+                    showSuccessAlert = true
+                } else {
                     print("Response body:", String(data: data ?? Data(), encoding: .utf8) ?? "No body")
                 }
             }
@@ -85,6 +88,9 @@ struct ContentView: View {
             .cornerRadius(8)
         }
         .padding()
+        .alert(isPresented: $showSuccessAlert) {
+            Alert(title: Text("Success"), message: Text("Data sent successfully!"), dismissButton: .default(Text("OK")))
+        }
     }
 }
 #Preview {
