@@ -1,6 +1,5 @@
 import rumps
 import os
-import time
 from dotenv import load_dotenv
 from supabase import create_client, Client
 import rumps
@@ -24,7 +23,6 @@ def check_and_prompt(item):
     running_app.activateWithOptions_(AppKit.NSApplicationActivateIgnoringOtherApps)
 
     response = alert.runModal()
-    print(response)
     if response == 1000:  # Open Now 
         if kind == "TEXT":
             exit_code1 = os.system(f"echo {msg} > /tmp/sendtomac.txt")
@@ -63,9 +61,9 @@ class SendToMacApp(rumps.App):
                  if not row["is_read"] and isoparse(row['use_at']) <= datetime.now(timezone.utc):
                      # opens then checks if opened, if opened does required functions with database
                      code = check_and_prompt(row)
-                     if code == 1 or code == 3: 
+                     if code == 1 or code == 3:  # marks seen as true since opened/ignore
                          self.supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
-                     elif code == 2:
+                     elif code == 2: # snoozed, so makes 'use_at' in database equal current time + snoozed amount
                          new_use_at = (datetime.now(timezone.utc) + timedelta(minutes=snoozed)).isoformat()
                          self.supabase.table("Main").update({"use_at": new_use_at}).eq("id", row["id"]).execute()
 
