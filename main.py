@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from supabase import create_client, Client
 import rumps
 import webbrowser
-import time
 import AppKit
 from datetime import datetime, timezone, timedelta
 from dateutil.parser import isoparse
@@ -18,12 +17,14 @@ def check_and_prompt(item):
     alert.setInformativeText_(msg)
     alert.addButtonWithTitle_("Open")
     alert.addButtonWithTitle_("Snooze 5m")
+    alert.addButtonWithTitle_("Ignore")
     alert.setAlertStyle_(AppKit.NSAlertStyleInformational)
 
     running_app = AppKit.NSRunningApplication.runningApplicationWithProcessIdentifier_(os.getpid())
     running_app.activateWithOptions_(AppKit.NSApplicationActivateIgnoringOtherApps)
 
     response = alert.runModal()
+    print(response)
     if response == 1000:  # Open Now 
         if kind == "TEXT":
             exit_code1 = os.system(f"echo {msg} > /tmp/sendtomac.txt")
@@ -39,9 +40,12 @@ def check_and_prompt(item):
 
         print("error, failed to action")
         return 0
-    else:  # Snooze
+    elif response == 1001:  # Snooze
         print("User snoozed the message.")
         return 2
+    elif response == 1002: # ignore
+        print("User Ignored the message")
+        return 3
 
 class SendToMacApp(rumps.App):
      def __init__(self):
@@ -59,7 +63,7 @@ class SendToMacApp(rumps.App):
                  if not row["is_read"] and isoparse(row['use_at']) <= datetime.now(timezone.utc):
                      # opens then checks if opened, if opened does required functions with database
                      code = check_and_prompt(row)
-                     if code == 1: 
+                     if code == 1 or code == 3: 
                          self.supabase.table("Main").update({"is_read": True}).eq("id", row["id"]).execute()
                      elif code == 2:
                          new_use_at = (datetime.now(timezone.utc) + timedelta(minutes=snoozed)).isoformat()
@@ -67,6 +71,7 @@ class SendToMacApp(rumps.App):
 
                          new_expires_at = (isoparse(row['expires_at']) + timedelta(minutes=snoozed * 2)).isoformat()
                          self.supabase.table("Main").update({"expires_at": new_expires_at}).eq("id", row["id"]).execute()
+                         
                      
                  elif row["is_read"] and isoparse(row['expires_at']) <= datetime.now(timezone.utc):
                      self.supabase.table("Main").delete().eq("id", row["id"]).execute()

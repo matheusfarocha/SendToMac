@@ -2,7 +2,7 @@ from setuptools import setup
 
 APP = ['main.py']
 OPTIONS = {
-    'packages': ['rumps', 'dotenv', 'supabase'],
+    'packages': ['rumps', 'dotenv', 'supabase', 'os', 'time', 'webbrowser', 'AppKit', 'datetime', 'dateutil.parser'],
 }
 
 setup(
