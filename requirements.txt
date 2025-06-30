@@ -1,0 +1,5 @@
+rumps
+python-dotenv
+supabase
+pyobjc-framework-AppKit
+python-dateutil
