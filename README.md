@@ -1,6 +1,6 @@
 # SendToMac
 
-Send data to you're Mac even while turned off.
+Send data to your Mac even while turned off.
 
 ## 🛠️ Features
 

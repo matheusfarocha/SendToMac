@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F52049622E1257390092136D /* SendToMacShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F52049582E1257390092136D /* SendToMacShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		F52049602E1257390092136D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F576829F2E03D80D0099A832 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F52049572E1257390092136D;
+			remoteInfo = SendToMacShare;
+		};
 		F57682B62E03D80E0099A832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F576829F2E03D80D0099A832 /* Project object */;
@@ -23,13 +34,35 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F52049632E1257390092136D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F52049622E1257390092136D /* SendToMacShare.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		F52049582E1257390092136D /* SendToMacShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SendToMacShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57682A72E03D80D0099A832 /* SendToMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SendToMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57682B52E03D80E0099A832 /* SendToMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SendToMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57682BF2E03D80E0099A832 /* SendToMacUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SendToMacUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F52049672E1257390092136D /* Exceptions for "SendToMacShare" folder in "SendToMacShare" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F52049572E1257390092136D /* SendToMacShare */;
+		};
 		F57682ED2E0486F40099A832 /* Exceptions for "SendToMac" folder in "SendToMac" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -40,6 +73,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		F52049592E1257390092136D /* SendToMacShare */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F52049672E1257390092136D /* Exceptions for "SendToMacShare" folder in "SendToMacShare" target */,
+			);
+			path = SendToMacShare;
+			sourceTree = "<group>";
+		};
 		F57682A92E03D80D0099A832 /* SendToMac */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -61,6 +102,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F52049552E1257390092136D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F57682A42E03D80D0099A832 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -91,6 +139,7 @@
 				F57682A92E03D80D0099A832 /* SendToMac */,
 				F57682B82E03D80E0099A832 /* SendToMacTests */,
 				F57682C22E03D80E0099A832 /* SendToMacUITests */,
+				F52049592E1257390092136D /* SendToMacShare */,
 				F57682A82E03D80D0099A832 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -101,6 +150,7 @@
 				F57682A72E03D80D0099A832 /* SendToMac.app */,
 				F57682B52E03D80E0099A832 /* SendToMacTests.xctest */,
 				F57682BF2E03D80E0099A832 /* SendToMacUITests.xctest */,
+				F52049582E1257390092136D /* SendToMacShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +158,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F52049572E1257390092136D /* SendToMacShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F52049662E1257390092136D /* Build configuration list for PBXNativeTarget "SendToMacShare" */;
+			buildPhases = (
+				F52049542E1257390092136D /* Sources */,
+				F52049552E1257390092136D /* Frameworks */,
+				F52049562E1257390092136D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F52049592E1257390092136D /* SendToMacShare */,
+			);
+			name = SendToMacShare;
+			packageProductDependencies = (
+			);
+			productName = SendToMacShare;
+			productReference = F52049582E1257390092136D /* SendToMacShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F57682A62E03D80D0099A832 /* SendToMac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F57682C92E03D80E0099A832 /* Build configuration list for PBXNativeTarget "SendToMac" */;
@@ -115,10 +187,12 @@
 				F57682A32E03D80D0099A832 /* Sources */,
 				F57682A42E03D80D0099A832 /* Frameworks */,
 				F57682A52E03D80D0099A832 /* Resources */,
+				F52049632E1257390092136D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F52049612E1257390092136D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F57682A92E03D80D0099A832 /* SendToMac */,
@@ -186,6 +260,9 @@
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					F52049572E1257390092136D = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					F57682A62E03D80D0099A832 = {
 						CreatedOnToolsVersion = 16.4;
 					};
@@ -216,11 +293,19 @@
 				F57682A62E03D80D0099A832 /* SendToMac */,
 				F57682B42E03D80E0099A832 /* SendToMacTests */,
 				F57682BE2E03D80E0099A832 /* SendToMacUITests */,
+				F52049572E1257390092136D /* SendToMacShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F52049562E1257390092136D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F57682A52E03D80D0099A832 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +330,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F52049542E1257390092136D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F57682A32E03D80D0099A832 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,6 +361,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F52049612E1257390092136D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F52049572E1257390092136D /* SendToMacShare */;
+			targetProxy = F52049602E1257390092136D /* PBXContainerItemProxy */;
+		};
 		F57682B72E03D80E0099A832 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F57682A62E03D80D0099A832 /* SendToMac */;
@@ -282,6 +379,61 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		F52049642E1257390092136D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 54WK4CYD9S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SendToMacShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SendToMacShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matheus.SendToMac.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F52049652E1257390092136D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 54WK4CYD9S;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SendToMacShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SendToMacShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matheus.SendToMac.Share;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		F57682C72E03D80E0099A832 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -569,6 +721,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F52049662E1257390092136D /* Build configuration list for PBXNativeTarget "SendToMacShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F52049642E1257390092136D /* Debug */,
+				F52049652E1257390092136D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F57682A22E03D80D0099A832 /* Build configuration list for PBXProject "SendToMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
