@@ -22,13 +22,9 @@ class ShareViewController: SLComposeServiceViewController {
                             print("Received URL: \(url)")
                         }
                     }
-                } else if attachment.hasItemConformingToTypeIdentifier("public.plain-text") {
-                    attachment.loadItem(forTypeIdentifier: "public.plain-text", options: nil) { (data, error) in
-                        if let text = data as? String {
-                            // Send this text to Supabase here
-                            print("Received text: \(text)")
-                        }
-                    }
+                }
+                else {
+                    print("Error: Unsupported attachment type.")
                 }
             }
         }

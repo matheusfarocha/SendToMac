@@ -89,16 +89,6 @@
 			path = SendToMac;
 			sourceTree = "<group>";
 		};
-		F57682B82E03D80E0099A832 /* SendToMacTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SendToMacTests;
-			sourceTree = "<group>";
-		};
-		F57682C22E03D80E0099A832 /* SendToMacUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = SendToMacUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				F57682A92E03D80D0099A832 /* SendToMac */,
-				F57682B82E03D80E0099A832 /* SendToMacTests */,
-				F57682C22E03D80E0099A832 /* SendToMacUITests */,
 				F52049592E1257390092136D /* SendToMacShare */,
 				F57682A82E03D80D0099A832 /* Products */,
 			);
@@ -217,9 +205,6 @@
 			dependencies = (
 				F57682B72E03D80E0099A832 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				F57682B82E03D80E0099A832 /* SendToMacTests */,
-			);
 			name = SendToMacTests;
 			packageProductDependencies = (
 			);
@@ -239,9 +224,6 @@
 			);
 			dependencies = (
 				F57682C12E03D80E0099A832 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				F57682C22E03D80E0099A832 /* SendToMacUITests */,
 			);
 			name = SendToMacUITests;
 			packageProductDependencies = (
